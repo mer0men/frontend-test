@@ -1,18 +1,9 @@
 <template lang="pug">
 div.comments-list
   p.orange.header Отзывы магазина
-  button.btn.btn-light.bordered-item Написать отзыв
+  button.btn.btn-light.bordered-item(@click="newComment") Написать отзыв
   div.list
-    comment-prev( v-bind:comment="comment")
-    comment-prev( v-bind:comment="comment")
-    comment-prev( v-bind:comment="comment")
-    comment-prev( v-bind:comment="comment")
-    comment-prev( v-bind:comment="comment")
-    comment-prev( v-bind:comment="comment")
-    comment-prev( v-bind:comment="comment")
-    comment-prev( v-bind:comment="comment")
-    comment-prev( v-bind:comment="comment")
-    comment-prev( v-bind:comment="comment")
+    comment-prev( v-for="(comment, index) in comments" :key="index"  :comment="comment")
 </template>
 
 <script>
@@ -22,11 +13,14 @@ export default {
   components: {
     CommentPrev
   },
-  data () {
-    return {
-      comment: {
-        rating: 4
-      }
+  methods: {
+    newComment () {
+      this.$router.push(`/newcomment`)
+    }
+  },
+  computed: {
+    comments () {
+      return this.$store.state.comments
     }
   }
 }
